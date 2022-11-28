@@ -24,6 +24,7 @@ public class MemberServiceIntegrationTest {
 
     @Test
     void join() {
+
         //given
         Member member = new Member();
         member.setName("spring100");

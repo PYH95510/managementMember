@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,15 +32,26 @@ class MemberServiceTest {
 
     @Test
     void join() {
-        //given
-        Member member = new Member();
-        member.setName("spring");
-        //when
-        Long saveId = memberService.join(member);
 
-        //then
-        Member findMember = memberService.findOne(saveId).get();
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        long start = System.currentTimeMillis();
+        try{
+
+            Member member = new Member();
+            member.setName("spring");
+            //when
+            Long saveId = memberService.join(member);
+
+            //then
+            Member findMember = memberService.findOne(saveId).get();
+            assertThat(member.getName()).isEqualTo(findMember.getName());
+
+        }finally{
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join = " + timeMs + "ms");
+        }
+        //given
+
     }
 
     @Test
@@ -71,10 +83,20 @@ class MemberServiceTest {
     }
 
     @Test
-    void findMembers() {
+    public List<Member> findMembers() {
+        long start = System.currentTimeMillis();
+        try{
+            return memberRepository.findAll();
+        }finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish-start;
+            System.out.println("findMembers =" + timeMs + "ms");
+
+        }
+
     }
 
     @Test
-    void findOne() {
+    public Optional<Member> findOne(Long memberId) {return memberRepository.findById(memberId);
     }
 }
