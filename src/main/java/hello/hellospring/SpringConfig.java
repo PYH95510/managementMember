@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.JbdcMemberRepository;
+import hello.hellospring.repository.JdbcTemplateMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import hello.hellospring.service.MemberService;
@@ -26,6 +27,7 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository(){
 //        return new MemoryMemberRepository();
-        return new JbdcMemberRepository(dataSource); //by just changing interface and changing interface, we can change database.
+//        return new JbdcMemberRepository(dataSource); //by just changing interface and changing interface, we can change database.
+        return new JdbcTemplateMemberRepository(dataSource);
     }
 }
